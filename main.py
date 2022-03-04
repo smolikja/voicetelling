@@ -1,5 +1,4 @@
 # import logging
-# import json
 import msvcrt
 import os
 from datetime import datetime, timedelta, time
@@ -49,16 +48,6 @@ def group_files_by_date(ungrouped_files):
             grouped_files[group_date][date] = ungrouped_files[date]
         else:
             grouped_files[group_date] = {date : ungrouped_files[date]}
-
-        # # for debug
-        # if group_date.strftime("%m/%d/%Y") in grouped_files.keys():
-        #     grouped_files[group_date.strftime("%m/%d/%Y")][date.strftime("%m/%d/%Y, %H:%M:%S")] = ungrouped_files[date]
-        # else:
-        #     grouped_files[group_date.strftime("%m/%d/%Y")] = {date.strftime("%m/%d/%Y, %H:%M:%S") : ungrouped_files[date]}
-        
-    # # for debug
-    # with open('grouped_files.json', 'w') as outfile:
-    #     json.dump(grouped_files, outfile)
 
     return grouped_files
 
