@@ -79,9 +79,10 @@ def process_audio_files(grouped_files):
     print("DONE | Your merged voice messages are located in 'export' directory!")
 
 def main(args=None):
-    print("\nThis tool merges facebook voice messages by date. For more infos and cotribution visit: ")
+    print("This tool merges facebook voice messages by date. For more infos and cotribution visit: ")
     print("Developed by smolikja: https://github.com/smolikja")
-    print("==================================================")
+    print("\n==================================================\n")
+
     # # for debug
     # logging.basicConfig(filename="std.log",
     #                     format='%(asctime)s %(message)s',
