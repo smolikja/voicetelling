@@ -1,5 +1,6 @@
 # import logging
 # import json
+import msvcrt
 import os
 from datetime import datetime, timedelta, time
 import sys
@@ -25,7 +26,10 @@ def get_voice_files():
                 file_timestamp = file[9:19]
                 file_date = datetime.fromtimestamp(int(file_timestamp))
                 dict_voice_files[file_date] = file
+
+                # for debug
                 # logging.info("Detected file -> created: {} | file name: {}".format(file_date.strftime("%d/%m/%Y, %H:%M:%S"), file))
+
             except (ValueError, TypeError):
                 print("Error while getting int timestamp from str | file name: {}".format(file))
                 break
@@ -58,7 +62,7 @@ def group_files_by_date(ungrouped_files):
     return grouped_files
 
 def process_audio_files(grouped_files):
-    print("in progress...")
+    print("This takes a while, merging is in progress...")
 
     if os.path.isdir("export"):
         shutil.rmtree("export")
@@ -72,9 +76,12 @@ def process_audio_files(grouped_files):
 
         to_be_merged += AudioSegment.from_file(resource_path("beep.wav"), format="wav")
         to_be_merged.export("export/{}.mp3".format(group_key.strftime("%Y-%m-%d")), format="mp3")
-    print("done")
+    print("DONE | Your merged voice messages are located in 'export' directory!")
 
 def main(args=None):
+    print("\nThis tool merges facebook voice messages by date. For more infos and cotribution visit: ")
+    print("Developed by smolikja: https://github.com/smolikja")
+    print("==================================================")
     # # for debug
     # logging.basicConfig(filename="std.log",
     #                     format='%(asctime)s %(message)s',
@@ -89,6 +96,9 @@ def main(args=None):
 
     # Merge and export audio files
     process_audio_files(dict_grouped_files)
+
+    print("Press any key to exit.")
+    msvcrt.getch()
 
 if __name__ == '__main__':
     main()
