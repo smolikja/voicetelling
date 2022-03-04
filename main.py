@@ -2,8 +2,17 @@
 # import json
 import os
 from datetime import datetime, timedelta, time
+import sys
 from pydub import AudioSegment
 import shutil
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 # Returns dictionary {<datetime: created> : <str: file name>} of voice files
 def get_voice_files():
@@ -51,10 +60,8 @@ def group_files_by_date(ungrouped_files):
 def process_audio_files(grouped_files):
     print("in progress...")
 
-    try:
+    if os.path.isdir("export"):
         shutil.rmtree("export")
-    except OSError as e:
-        print("Error: %s : %s" % ("export", e.strerror))
     os.mkdir("export")
 
     for group_key in grouped_files:
@@ -63,7 +70,7 @@ def process_audio_files(grouped_files):
         for file_key in grouped_files[group_key]:
             to_be_merged += AudioSegment.from_file(grouped_files[group_key][file_key], format="mp4")
 
-        to_be_merged += AudioSegment.from_file("beep.wav", format="wav")
+        to_be_merged += AudioSegment.from_file(resource_path("beep.wav"), format="wav")
         to_be_merged.export("export/{}.mp3".format(group_key.strftime("%Y-%m-%d")), format="mp3")
     print("done")
 
