@@ -61,8 +61,31 @@ def group_files_by_date(ungrouped_files):
 
     return grouped_files
 
+# Print iterations progress
+def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█', printEnd = "\r"):
+    """
+    Call in a loop to create terminal progress bar
+    @params:
+        iteration   - Required  : current iteration (Int)
+        total       - Required  : total iterations (Int)
+        prefix      - Optional  : prefix string (Str)
+        suffix      - Optional  : suffix string (Str)
+        decimals    - Optional  : positive number of decimals in percent complete (Int)
+        length      - Optional  : character length of bar (Int)
+        fill        - Optional  : bar fill character (Str)
+        printEnd    - Optional  : end character (e.g. "\r", "\r\n") (Str)
+    """
+    percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
+    filledLength = int(length * iteration // total)
+    bar = fill * filledLength + '-' * (length - filledLength)
+    print(f'\r{prefix} |{bar}| {percent}% {suffix}', end = printEnd)
+    # Print New Line on Complete
+    if iteration == total: 
+        print()
+
 def process_audio_files(grouped_files):
     print("This takes a while, merging is in progress...")
+    printProgressBar(0, len(grouped_files.keys()), prefix = 'Progress:', suffix = 'Complete', length = 50)
 
     if os.path.isdir("export"):
         shutil.rmtree("export")
@@ -76,12 +99,13 @@ def process_audio_files(grouped_files):
 
         to_be_merged += AudioSegment.from_file(resource_path("beep.wav"), format="wav")
         to_be_merged.export("export/{}.mp3".format(group_key.strftime("%Y-%m-%d")), format="mp3")
+        printProgressBar(list(grouped_files).index(group_key) + 1, len(grouped_files.keys()), prefix = 'Progress:', suffix = 'Complete', length = 50)
     print("DONE | Your merged voice messages are located in 'export' directory!")
 
 def main(args=None):
     print("This tool merges facebook voice messages by date. For more infos and cotribution visit: ")
     print("Developed by smolikja: https://github.com/smolikja")
-    print("\n==================================================\n")
+    print("==================================================")
 
     # # for debug
     # logging.basicConfig(filename="std.log",
