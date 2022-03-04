@@ -1,9 +1,9 @@
-import logging
+# import logging
+# import json
 import os
 from datetime import datetime, timedelta, time
 from pydub import AudioSegment
 import shutil
-import json
 
 # Returns dictionary {<datetime: created> : <str: file name>} of voice files
 def get_voice_files():
@@ -16,9 +16,9 @@ def get_voice_files():
                 file_timestamp = file[9:19]
                 file_date = datetime.fromtimestamp(int(file_timestamp))
                 dict_voice_files[file_date] = file
-                logging.info("Detected file -> created: {} | file name: {}".format(file_date.strftime("%d/%m/%Y, %H:%M:%S"), file))
+                # logging.info("Detected file -> created: {} | file name: {}".format(file_date.strftime("%d/%m/%Y, %H:%M:%S"), file))
             except (ValueError, TypeError):
-                logging.error("Error while getting int timestamp from str | file name: {}".format(file))
+                print("Error while getting int timestamp from str | file name: {}".format(file))
                 break
 
     return dict_voice_files
@@ -54,7 +54,7 @@ def process_audio_files(grouped_files):
     try:
         shutil.rmtree("export")
     except OSError as e:
-        logging.error("Error: %s : %s" % ("export", e.strerror))
+        print("Error: %s : %s" % ("export", e.strerror))
     os.mkdir("export")
 
     for group_key in grouped_files:
@@ -68,10 +68,11 @@ def process_audio_files(grouped_files):
     print("done")
 
 def main(args=None):
-    logging.basicConfig(filename="std.log",
-                        format='%(asctime)s %(message)s',
-                        filemode='w',
-                        level= logging.DEBUG)
+    # # for debug
+    # logging.basicConfig(filename="std.log",
+    #                     format='%(asctime)s %(message)s',
+    #                     filemode='w',
+    #                     level= logging.DEBUG)
 
     # Files into dictionary {<datetime: created> : <str: file name>}
     dict_voice_files = get_voice_files()
