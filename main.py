@@ -119,11 +119,14 @@ def main(args=None):
     # Files into dictionary {<datetime: created> : <str: file name>}
     dict_voice_files = get_voice_files()
 
-    # Files into dictionary {<datetime: group time> : {<datetime: created> : <str: file name>}}
-    dict_grouped_files = group_files_by_date(dict_voice_files)
+    if bool(dict_voice_files):
+        # Files into dictionary {<datetime: group time> : {<datetime: created> : <str: file name>}}
+        dict_grouped_files = group_files_by_date(dict_voice_files)
 
-    # Merge and export audio files
-    process_audio_files(dict_grouped_files)
+        # Merge and export audio files
+        process_audio_files(dict_grouped_files)
+    else:
+        print("\n>>> No voice files found. <<<\n")
 
     print("Press any key to exit.")
     msvcrt.getch()
