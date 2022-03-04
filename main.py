@@ -4,7 +4,7 @@ import msvcrt
 import os
 from datetime import datetime, timedelta, time
 import sys
-from pydub import AudioSegment
+from pydub import AudioSegment, effects  
 import shutil
 
 def resource_path(relative_path):
@@ -104,7 +104,9 @@ def process_audio_files(grouped_files):
                                                 format="mp4")
 
         to_be_merged += AudioSegment.from_file(resource_path("beep.wav"), format="wav")
-        to_be_merged.export("export/{}.mp3".format(group_key.strftime("%Y-%m-%d")), format="mp3")
+
+        normalized_audio = effects.normalize(to_be_merged)
+        normalized_audio.export("export/{}.mp3".format(group_key.strftime("%Y-%m-%d")), format="mp3")
 
         printProgressBar(list(grouped_files).index(group_key) + 1,
                             len(grouped_files.keys()),
