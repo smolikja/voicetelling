@@ -1,6 +1,8 @@
 import logging
 import os
 from datetime import datetime, timedelta, time
+from pydub import AudioSegment
+import shutil
 import json
 
 # Returns dictionary {<datetime: created> : <str: file name>} of voice files
@@ -46,6 +48,25 @@ def group_files_by_date(ungrupped_files):
 
     return grupped_files
 
+def process_audio_files(groupped_files):
+    print("in progress...")
+
+    try:
+        shutil.rmtree("export")
+    except OSError as e:
+        logging.error("Error: %s : %s" % ("export", e.strerror))
+    os.mkdir("export")
+
+    for group_key in groupped_files:
+        to_be_merged = AudioSegment.empty()
+
+        for file_key in groupped_files[group_key]:
+            to_be_merged += AudioSegment.from_file(groupped_files[group_key][file_key], format="mp4")
+
+        to_be_merged += AudioSegment.from_file("beep.wav", format="wav")
+        to_be_merged.export("export/{}.mp3".format(group_key.strftime("%d-%m-%Y")), format="mp3")
+    print("done")
+
 def main(args=None):
     logging.basicConfig(filename="std.log",
                         format='%(asctime)s %(message)s',
@@ -56,10 +77,10 @@ def main(args=None):
     dict_voice_files = get_voice_files()
 
     # Files into dictionary {<datetime: grupe time> : {<datetime: created> : <str: file name>}}
-    dict_grupped_files = group_files_by_date(dict_voice_files)
+    dict_groupped_files = group_files_by_date(dict_voice_files)
 
-    # TODO: merge skupin filu
-    print("hello world")
+    # Merge and export audio files
+    process_audio_files(dict_groupped_files)
 
 if __name__ == '__main__':
     main()
