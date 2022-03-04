@@ -11,7 +11,7 @@ def get_voice_files():
     all_files = os.listdir()
 
     for file in all_files:
-        if file.startswith('audioclip'):
+        if file.startswith('audioclip') and file.endswith('.mp4'):
             try:
                 file_timestamp = file[9:19]
                 file_date = datetime.fromtimestamp(int(file_timestamp))
