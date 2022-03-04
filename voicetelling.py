@@ -100,7 +100,11 @@ def process_audio_files(grouped_files):
     print("\nDONE | Your merged voice messages are located in 'export' directory!")
 
 def main(args=None):
-    print("This tool merges facebook voice messages by date. For more infos and cotribution visit: ")
+    print("          ╔════════════════════════════════╗")
+    print("          ║          Voicetelling          ║")  
+    print("          ╚════════════════════════════════╝")
+    print("This tool merges facebook voice messages by date into stories.")
+    print("► url") # TODO: repository url
     print("Developed by smolikja: https://github.com/smolikja")
     print("==================================================")
 
