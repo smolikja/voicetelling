@@ -41,7 +41,9 @@ def group_files_by_date(ungrupped_files):
         #     grupped_files[group_date.strftime("%m/%d/%Y")] = {date.strftime("%m/%d/%Y, %H:%M:%S") : ungrupped_files[date]}
         
     # # for debug
-    # print(json.dumps(grupped_files, indent= 4))
+    # with open('grupped_files.json', 'w') as outfile:
+    #     json.dump(grupped_files, outfile)
+
     return grupped_files
 
 def main(args=None):
