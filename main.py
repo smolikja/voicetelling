@@ -63,7 +63,7 @@ def process_audio_files(grouped_files):
         for file_key in grouped_files[group_key]:
             to_be_merged += AudioSegment.from_file(grouped_files[group_key][file_key], format="mp4")
 
-        # to_be_merged += AudioSegment.from_file("beep.wav", format="wav")
+        to_be_merged += AudioSegment.from_file("beep.wav", format="wav")
         to_be_merged.export("export/{}.mp3".format(group_key.strftime("%Y-%m-%d")), format="mp3")
     print("done")
 
