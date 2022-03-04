@@ -13,7 +13,8 @@ def resource_path(relative_path):
     except Exception:
         base_path = os.path.abspath(".")
 
-    return os.path.join(base_path, relative_path)
+    return os.path.join(base_path,
+                        relative_path)
 
 # Returns dictionary {<datetime: created> : <str: file name>} of voice files
 def get_voice_files():
@@ -85,7 +86,11 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
 
 def process_audio_files(grouped_files):
     print("This takes a while, merging is in progress...")
-    printProgressBar(0, len(grouped_files.keys()), prefix = 'Progress:', suffix = 'Complete', length = 50)
+    printProgressBar(0,
+                    len(grouped_files.keys()),
+                    prefix = 'Progress:',
+                    suffix = 'Complete',
+                    length = 50)
 
     if os.path.isdir("export"):
         shutil.rmtree("export")
@@ -95,11 +100,18 @@ def process_audio_files(grouped_files):
         to_be_merged = AudioSegment.empty()
 
         for file_key in grouped_files[group_key]:
-            to_be_merged += AudioSegment.from_file(grouped_files[group_key][file_key], format="mp4")
+            to_be_merged += AudioSegment.from_file(grouped_files[group_key][file_key],
+                                                format="mp4")
 
         to_be_merged += AudioSegment.from_file(resource_path("beep.wav"), format="wav")
         to_be_merged.export("export/{}.mp3".format(group_key.strftime("%Y-%m-%d")), format="mp3")
-        printProgressBar(list(grouped_files).index(group_key) + 1, len(grouped_files.keys()), prefix = 'Progress:', suffix = 'Complete', length = 50)
+
+        printProgressBar(list(grouped_files).index(group_key) + 1,
+                            len(grouped_files.keys()),
+                            prefix = 'Progress:',
+                            suffix = 'Complete',
+                            length = 50)
+
     print("DONE | Your merged voice messages are located in 'export' directory!")
 
 def main(args=None):
