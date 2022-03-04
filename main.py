@@ -52,7 +52,7 @@ def group_files_by_date(ungrouped_files):
     return grouped_files
 
 # Print iterations progress
-def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█', printEnd = "\r"):
+def printProgressBar (iteration, total, prefix = 'Progress:', suffix = 'Complete', decimals = 1, length = 50, fill = '▒', printEnd = "\r"):
     """
     Call in a loop to create terminal progress bar
     @params:
@@ -76,10 +76,7 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
 def process_audio_files(grouped_files):
     print("This takes a while, merging is in progress...\n")
     printProgressBar(0,
-                    len(grouped_files.keys()),
-                    prefix = 'Progress:',
-                    suffix = 'Complete',
-                    length = 50)
+                    len(grouped_files.keys()))
 
     if os.path.isdir("export"):
         shutil.rmtree("export")
@@ -98,10 +95,7 @@ def process_audio_files(grouped_files):
         normalized_audio.export("export/{}.mp3".format(group_key.strftime("%Y-%m-%d")), format="mp3")
 
         printProgressBar(list(grouped_files).index(group_key) + 1,
-                            len(grouped_files.keys()),
-                            prefix = 'Progress:',
-                            suffix = 'Complete',
-                            length = 50)
+                            len(grouped_files.keys()))
 
     print("\nDONE | Your merged voice messages are located in 'export' directory!")
 
