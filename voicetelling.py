@@ -75,7 +75,6 @@ def printProgressBar (iteration, total, prefix = 'Progress:', suffix = 'Complete
         print()
 
 def process_audio_files(grouped_files):
-    print("This takes a while, merging is in progress...\n")
     printProgressBar(0,
                     len(grouped_files.keys()))
 
@@ -151,6 +150,9 @@ def main(args=None):
 
         # Files into dictionary {<datetime: group time> : {<datetime: created> : <str: file name>}}
         dict_grouped_files = group_files_by_date(dict_voice_files, date_range= range)
+
+        
+        print("\nMerging {} audio files into {} stories...".format(len(dict_voice_files.keys()), len(dict_grouped_files.keys())))
 
         # Merge and export audio files
         process_audio_files(dict_grouped_files)
