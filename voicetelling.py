@@ -91,8 +91,13 @@ def process_audio_files(grouped_files):
 
         to_be_merged += AudioSegment.from_file(resource_path("beep.wav"), format="wav")
 
-        normalized_audio = effects.normalize(to_be_merged)
-        normalized_audio.export("export/{}.mp3".format(group_key.strftime("%Y-%m-%d")), format="mp3")
+        try:
+            normalized_audio = effects.normalize(to_be_merged)
+            normalized_audio.export("export/{}.mp3".format(group_key.strftime("%Y-%m-%d")), format="mp3")
+        except Exception as e:
+            print(e)
+            msvcrt.getch()
+
 
         printProgressBar(list(grouped_files).index(group_key) + 1,
                             len(grouped_files.keys()))
