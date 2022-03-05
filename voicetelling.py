@@ -128,10 +128,10 @@ def get_process_range():
     
 
 def main(args=None):
-    print("          ╔════════════════════════════════╗")
-    print("          ║          Voicetelling          ║")  
-    print("          ╚════════════════════════════════╝")
-    print("This tool merges facebook voice messages by date into stories.")
+    print("                 ╔════════════════════════════════╗")
+    print("                 ║          Voicetelling          ║")  
+    print("                 ╚════════════════════════════════╝")
+    print("This script merges Facebook Messenger voice messages by day into .mp3 files.")
     print("► url") # TODO: repository url
     print("Developed by smolikja: https://github.com/smolikja")
     print("==================================================")
@@ -152,7 +152,7 @@ def main(args=None):
         dict_grouped_files = group_files_by_date(dict_voice_files, date_range= range)
 
         
-        print("\nMerging {} audio files into {} stories...".format(len(dict_voice_files.keys()), len(dict_grouped_files.keys())))
+        print("\nPreparing {} audio files...".format(len(dict_voice_files.keys()), len(dict_grouped_files.keys())))
 
         # Merge and export audio files
         process_audio_files(dict_grouped_files)
