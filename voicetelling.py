@@ -137,7 +137,7 @@ def main(args=None):
     print("                 ║          Voicetelling          ║")  
     print("                 ╚════════════════════════════════╝")
     print("This script merges Facebook Messenger voice messages by day into .mp3 files.")
-    print("► url") # TODO: repository url
+    print("► https://github.com/smolikja/voicetelling")
     print("Developed by smolikja: https://github.com/smolikja")
     print("==================================================")
 
