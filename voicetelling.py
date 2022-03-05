@@ -36,7 +36,7 @@ def get_voice_files():
 
     return dict_voice_files
 
-def group_files_by_date(ungrouped_files):
+def group_files_by_date(ungrouped_files, date_range):
     grouped_files = {}
 
     for date in ungrouped_files:
@@ -44,10 +44,11 @@ def group_files_by_date(ungrouped_files):
         if datetime.time(date) < time(5, 0, 0):
             group_date = group_date - timedelta(days=1)
 
-        if group_date in grouped_files.keys():
-            grouped_files[group_date][date] = ungrouped_files[date]
-        else:
-            grouped_files[group_date] = {date : ungrouped_files[date]}
+        if date_range[0] <= group_date <= date_range[1]:
+            if group_date in grouped_files.keys():
+                grouped_files[group_date][date] = ungrouped_files[date]
+            else:
+                grouped_files[group_date] = {date : ungrouped_files[date]}
 
     return grouped_files
 
@@ -99,6 +100,34 @@ def process_audio_files(grouped_files):
 
     print("\nDONE | Your merged voice messages are located in 'export' directory!")
 
+def is_valid_range_date_format(str_date):
+    try:
+        datetime.strptime(str_date, '%Y.%m.%d')
+        return True
+    except ValueError:
+        return False
+
+# Get date range from user
+def get_process_range():
+    range = [datetime(1900, 1, 1).date(), datetime(3000, 1, 1).date()]
+
+    range_from_str = input("Process messages from [yyyy.mm.dd] (empty for no limit): ")
+    while range_from_str != '' and not is_valid_range_date_format(range_from_str):
+        range_from_str = input("typo ► Process messages from [yyyy.mm.dd] (empty for no limit): ")
+
+    if range_from_str != '':
+        range[0] = datetime.strptime(range_from_str, '%Y.%m.%d').date()
+
+    range_to_str = input("Process messages to [yyyy.mm.dd] (empty for no limit): ")
+    while range_to_str != '' and not is_valid_process_range_date_format(range_to_str):
+        range_to_str = input("typo ► Process messages to [yyyy.mm.dd] (empty for no limit): ")
+
+    if range_to_str != '':
+        range[1] = datetime.strptime(range_to_str, '%Y.%m.%d').date()
+
+    return range
+    
+
 def main(args=None):
     print("          ╔════════════════════════════════╗")
     print("          ║          Voicetelling          ║")  
@@ -118,8 +147,10 @@ def main(args=None):
     dict_voice_files = get_voice_files()
 
     if bool(dict_voice_files):
+        range = get_process_range()
+
         # Files into dictionary {<datetime: group time> : {<datetime: created> : <str: file name>}}
-        dict_grouped_files = group_files_by_date(dict_voice_files)
+        dict_grouped_files = group_files_by_date(dict_voice_files, date_range= range)
 
         # Merge and export audio files
         process_audio_files(dict_grouped_files)
