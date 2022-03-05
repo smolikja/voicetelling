@@ -14,7 +14,7 @@ Make sure you have [FFmpeg](https://www.ffmpeg.org/download.html) installed in y
 
 > tip: Install via [Chocolatey](https://chocolatey.org/install) `choco install ffmpeg`
 
-Download latest executable from releases. TODO: link
+Download latest executable from [releases](https://github.com/smolikja/voicetelling/releases).
 
 ## How to use
 1. [Request and download](https://www.facebook.com/help/212802592074644)  your Facebook messages:
