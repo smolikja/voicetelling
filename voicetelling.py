@@ -156,8 +156,7 @@ def main(args=None):
         # Files into dictionary {<datetime: group time> : {<datetime: created> : <str: file name>}}
         dict_grouped_files = group_files_by_date(dict_voice_files, date_range= range)
 
-        
-        print("\nPreparing {} audio files...".format(len(dict_voice_files.keys()), len(dict_grouped_files.keys())))
+        print("\nProcessing into {} audio files...".format(len(dict_grouped_files.keys())))
 
         # Merge and export audio files
         process_audio_files(dict_grouped_files)
