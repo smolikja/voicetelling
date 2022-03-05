@@ -119,7 +119,7 @@ def get_process_range():
         range[0] = datetime.strptime(range_from_str, '%Y.%m.%d').date()
 
     range_to_str = input("Process messages to [yyyy.mm.dd] (empty for no limit): ")
-    while range_to_str != '' and not is_valid_process_range_date_format(range_to_str):
+    while range_to_str != '' and not is_valid_range_date_format(range_to_str):
         range_to_str = input("typo ► Process messages to [yyyy.mm.dd] (empty for no limit): ")
 
     if range_to_str != '':
