@@ -9,14 +9,14 @@ Voicetelling is a script merging (=grouping, combining) Facebook Messenger voice
 - Output files are located in script created `export` folder.
 - Each day for the script starts at 5.00AM.
 
-## Windows setup
+## 🪟 Windows setup
 Make sure you have [FFmpeg](https://www.ffmpeg.org/download.html) installed in your system.
 
 > tip: Install via [Chocolatey](https://chocolatey.org/install) `choco install ffmpeg`
 
 Download latest executable from [releases](https://github.com/smolikja/voicetelling/releases).
 
-## How to use
+## 💡 How to use
 1. [Request and download](https://www.facebook.com/help/212802592074644)  your Facebook messages:
 `facebook.com > Settings & Privacy > Settings > Your Facebook Information > Donwload Your Information > thic Messages`
 
@@ -28,15 +28,14 @@ Download latest executable from [releases](https://github.com/smolikja/voicetell
 
 4. Exported files are located in `/facebook-{user}/messages/ibox/{conversation}/audio/export`
 
-## Example
-TODO: video
+## 👀 Example video
+[![](https://img.youtube.com/vi/WyXumac4ud8/0.jpg)](https://www.youtube.com/watch?v=WyXumac4ud8)
 
-## Contribution
-All contributions are welcomed!
+## 🛠️ Contribution
+All contributions and [ideas](https://github.com/smolikja/voicetelling/discussions) are welcomed!
 
 Make sure, you have [Python](https://www.python.org/downloads/), [ FFmpeg](https://www.ffmpeg.org/download.html), [Pydub](https://github.com/jiaaro/pydub) in your system installed.
 Fork repository and contribute:))
-
 
 ## TODO
 - multithreading
