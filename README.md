@@ -37,5 +37,5 @@ All contributions and [ideas](https://github.com/smolikja/voicetelling/discussio
 Make sure, you have [Python](https://www.python.org/downloads/), [ FFmpeg](https://www.ffmpeg.org/download.html), [Pydub](https://github.com/jiaaro/pydub) in your system installed.
 Fork repository and contribute:))
 
-## TODO
-- multithreading
+## ⚖️ License
+[MIT License](https://github.com/smolikja/voicetelling/blob/main/LICENSE)
